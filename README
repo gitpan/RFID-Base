@@ -1,0 +1,16 @@
+# Written by Scott Gifford <gifford@umich.edu>
+# Copyright (C) 2004 The Regents of the University of Michigan.
+# See the file LICENSE included with the distribution for license
+# information.
+
+The RFID::Base package provides abstract base classes and helper
+functions for implementing RFID reader and tag classes.
+
+See the perldoc for RFID::Reader and RFID::Tag for documentation.
+
+See the rfid-perl Web page for other information, and instructions for
+subscribing to the mailing list:
+
+    http://www.eecs.umich.edu/~wherefid/code/rfid-perl/
+
+
