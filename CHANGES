@@ -1,4 +1,23 @@
 Version 0.001
 =============
 
-Initial release.
+Internal version.
+
+
+Version 0.002
+=============
+
+Initial public release.
+
+
+Version 0.003
+=============
+
+Work around bug with taint checking and fork on some versions of Windows,
+  by skipping those tests.
+
+Work around broken nonblocking file reads on some versions of Windows,
+  by using select instead.
+
+AFAIK, this fixes all of the bugs that stopped earlier versions from working
+  on Windows XP.

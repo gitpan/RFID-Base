@@ -58,18 +58,15 @@ sub new
     $self->{_sock}=IO::Socket::INET->new(%p)
 	or die "Couldn't create socket: $!\n";
     
-    # Clear out any gibberish that's waiting for us
-    sleep(1);
-    $self->{_sock}->blocking(0);
-    while ($self->{_sock}->sysread($buf,8192))
-    {
-	warn "Ignoring initial text '$buf'\n";
-    }
-    $self->{_sock}->blocking(1);
-
     $self->{_select}=IO::Select->new($self->{_sock})
 	or die "Couldn't create IO::Select: $!\n";
-    
+
+    # Clear out any gibberish that's waiting for us
+    while ($self->{_select}->can_read(1))
+    {
+	($self->{_sock}->sysread($buf,8192));
+	warn "Ignoring initial text '$buf'\n";
+    }
 
     $self->_init(%p);
 
