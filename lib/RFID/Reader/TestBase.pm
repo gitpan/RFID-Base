@@ -83,6 +83,9 @@ sub run
     my $writeh = shift || shift || IO::Handle->new_from_fd(fileno(STDOUT),"w")
 	or die "Couldn't get write filehandle: $!\n";
 
+    $readh->blocking(0);
+    $writeh->blocking(0);
+
     my $readsel = IO::Select->new($readh);
     my $writesel = IO::Select->new($writeh);
     

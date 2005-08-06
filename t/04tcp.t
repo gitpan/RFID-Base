@@ -1,9 +1,9 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl -Tw
 
 use strict;
 use IO::Socket::INET;
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 BEGIN {
     use_ok('RFID::Reader::TCP');
     use_ok('RFID::Reader::TestBase');
@@ -75,6 +75,13 @@ eval {
     ok($obj->_readbytes(5) eq "hello");
     ok($obj->_readuntil("\0") eq " there");
     ok($obj->_readuntil("\n") eq "hello again");
+    # test taint mode
+    # Test the taint stuff.
+    eval
+    {
+	$obj->_writebytes($ENV{PATH});
+    };
+    ok($@ =~ /taint/i);
 };
 warn $@ if $@;
 

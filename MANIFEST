@@ -16,5 +16,4 @@ t/03reader.t
 t/03testbase.t
 t/04tcp.t
 t/05serial.t
-t/06taint.t
 TODO

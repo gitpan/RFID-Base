@@ -1,10 +1,10 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl -Tw
 
 use strict;
 
 use IO::Socket;
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 
 BEGIN {
     use_ok('RFID::Reader::TestBase');
@@ -25,6 +25,13 @@ ok($test->_writebytes("hello there","\0","hello again\n")==24);
 ok($test->_readbytes(5) eq "hello");
 ok($test->_readuntil("\0") eq " there");
 ok($test->_readuntil("\n") eq "hello again");
+
+# Test the taint stuff.
+eval
+{
+    $test->_writebytes($ENV{PATH});
+};
+ok($@);
 
 # Now do a quick test of the server.
 my($s1,$s2)=IO::Socket->socketpair(AF_UNIX,SOCK_STREAM,PF_UNSPEC)

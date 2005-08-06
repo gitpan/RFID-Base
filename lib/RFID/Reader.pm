@@ -1,5 +1,5 @@
 package RFID::Reader;
-$VERSION=0.003;
+$VERSION=0.002;
 @ISA=qw(Exporter);
 @EXPORT_OK=qw(hexdump ref_tainted);
 
