@@ -30,8 +30,10 @@ use constant STOPBITS => 1;
 use constant PARITY => 'none';
 use constant HANDSHAKE => 'none';
 use constant DEFAULT_TIMEOUT => 2000; #ms
-use constant STREAMLINE_TIMEOUT => 50; #ms
 
+# This is small, but if it's larger reads will sometimes
+# time out, and if it's zero we poll in a tight loop.
+use constant STREAMLINE_BUFSIZE => 1; 
 =head2 Constructor
 
 =head3 new
@@ -165,14 +167,20 @@ sub _readuntil
     my $self = shift;
     my($delim) = @_;
 
+    my $started = time;
+    
     my $com = $self->{com};
+    $com->read_const_time($self->{timeout} * 1000);
 
     my $match;
     my $i = 0;
     $self->{com}->are_match($delim);
-    while (!($match = $com->streamline))
+    while (!($match = $com->streamline(STREAMLINE_BUFSIZE)))
     {
-	;
+      if ( (time - $started) >= $self->{timeout})
+      {
+	die "Timeout waiting for response\n";
+      }
     }
     return $match;
 

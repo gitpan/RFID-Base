@@ -1,5 +1,5 @@
 package RFID::Reader;
-$VERSION=0.002;
+$VERSION=0.004;
 @ISA=qw(Exporter);
 @EXPORT_OK=qw(hexdump ref_tainted);
 
@@ -428,7 +428,7 @@ from the list returned by L<readtags|/readtags>.
 =head1 SEE ALSO
 
 L<RFID::Tag>, L<RFID::Reader::Serial>, L<RFID::Reader::TCP>,
-L<http://www.eecs.umich.edu/~wherefid/code/rfid-perl/>, The manual for
+L<http://whereabouts.eecs.umich.edu/code/rfid-perl/>, The manual for
 your particular RFID driver class.
 
 =head1 AUTHOR

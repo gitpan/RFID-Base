@@ -215,7 +215,7 @@ A string describing the type of this tag.
 =head1 SEE ALSO
 
 L<RFID::Reader>,
-L<http://www.eecs.umich.edu/~wherefid/code/rfid-perl/>, The manual for
+L<http://whereabouts.eecs.umich.edu/code/rfid-perl/>, The manual for
 your particular RFID driver class, The manual for your RFID driver's
 tag class.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/perl -Tw
+#!/usr/bin/perl -w
 
 use strict;
 
@@ -8,22 +8,23 @@ use RFID::Reader::TestBase;;
 use Fcntl;
 use IO::Socket;
 
-
 my $tainted = $ENV{PATH};
 
 # We're just testing, so untaint blindly.
 $ENV{PATH} =~ /^(.*)$/;
 $ENV{PATH}=$1;
 
+use constant NEED_STUFF => "Need Unix, interceptty, and Device::SerialPort to test serial driver";
+
 eval 'use Device::SerialPort';
-$@ and plan skip_all => 'Need Device::SerialPort to test serial driver.';
+$@ and plan skip_all => NEED_STUFF;
 my $interceptty_version = `interceptty -V 2>/dev/null`;
 if ($? or $interceptty_version !~ /^(0.[4-9]|[1-9])/) 
 {
-    plan skip_all => "Need interceptty version 0.4 or higher to test serial driver.";
+    plan skip_all => NEED_STUFF;
 }
 
-plan tests => 7;
+plan tests => 6;
 
 # Start up a server.
 our $pid;
@@ -92,12 +93,6 @@ eval {
     ok($obj->_readuntil("\0") eq " there");
     ok($obj->_readuntil("\n") eq "hello again");
 
-    # Test the taint stuff.
-    eval
-    {
-	$obj->_writebytes($tainted);
-    };
-    ok($@ =~ /taint/i);
 };
 warn $@ if $@;
 
