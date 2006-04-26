@@ -3,7 +3,7 @@ use RFID::Reader qw(ref_tainted); $VERSION=$RFID::Reader::VERSION;
 our @ISA = qw();
 
 # Written by Scott Gifford <gifford@umich.edu>
-# Copyright (C) 2004 The Regents of the University of Michigan.
+# Copyright (C) 2004-2006 The Regents of the University of Michigan.
 # See the file LICENSE included with the distribution for license
 # information.
 
@@ -29,7 +29,7 @@ use constant DATABITS => 8;
 use constant STOPBITS => 1;
 use constant PARITY => 'none';
 use constant HANDSHAKE => 'none';
-use constant DEFAULT_TIMEOUT => 2000; #ms
+use constant DEFAULT_TIMEOUT => 30; # seconds
 
 # This is small, but if it's larger reads will sometimes
 # time out, and if it's zero we poll in a tight loop.
@@ -195,7 +195,7 @@ L<Device::SerialPort>.
 
 Scott Gifford E<lt>gifford@umich.eduE<gt>, E<lt>sgifford@suspectclass.comE<gt>
 
-Copyright (C) 2004 The Regents of the University of Michigan.
+Copyright (C) 2004-2006 The Regents of the University of Michigan.
 
 See the file LICENSE included with the distribution for license
 information.
